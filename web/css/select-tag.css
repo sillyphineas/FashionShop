@@ -1,0 +1,32 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 19, 2024, 1:51:15 PM
+    Author     : HP
+*/
+
+.dropdown-toggle {
+    font-weight: bold; /* Làm đậm chữ */
+    font-size: 18px; /* Kích thước chữ */
+    color: #000; /* Màu chữ */
+}
+
+.dropdown-menu {
+    position: absolute; /* Để có thể đặt vị trí chính xác */
+    background-color: white; /* Màu nền */
+    border: 1px solid #ccc; /* Đường viền */
+    z-index: 1000; /* Để đảm bảo nó ở trên các phần tử khác */
+    display: none; /* Ẩn mặc định */
+}
+
+.dropdown-menu a {
+    display: block; /* Mỗi liên kết trên một dòng */
+    padding: 8px 16px; /* Khoảng cách cho các liên kết */
+    text-decoration: none; /* Bỏ gạch chân */
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
