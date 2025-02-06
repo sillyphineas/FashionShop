@@ -1,0 +1,24 @@
+name: Build
+on:
+  push:
+    branches:
+      - master  # Phân tích khi có push lên nhánh master
+  pull_request:
+    types: [opened, synchronize, reopened]  # Phân tích khi tạo hoặc cập nhật pull request
+
+jobs:
+  sonarqube:
+    name: SonarQube
+    runs-on: windows-latest  # Chạy trên môi trường Windows
+    steps:
+      # Bước checkout mã nguồn
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Tắt shallow clones để cải thiện độ chính xác của phân tích
+
+      # Bước phân tích với SonarQube
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Truyền Token từ GitHub Secrets
+
