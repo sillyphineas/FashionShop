@@ -33,7 +33,6 @@ public class LogoutController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             request.getSession().invalidate();
-            // Chuyển về trang đăng nhập sau khi đăng xuất
             response.sendRedirect("HomePage.jsp");
         }
     } 

@@ -1,8 +1,7 @@
-sonar.organization=sillyphineas
-sonar.projectKey=sillyphineas_FashionShop
+sonar.projectKey=FashionShop
 sonar.projectName=FashionShop
 sonar.projectVersion=1.0
 sonar.sources=src
-sonar.tests=test
-sonar.login=786bf9feda5a1bc5c9b5423384dc39669fd7e11b
-sonar.host.url=https://sonarcloud.io
+sonar.java.binaries=dist/FashionShop.war/WEB-INF/classes
+sonar.host.url=http://localhost:9000
+sonar.login=sqp_9634945ec4017f531a38732ef40672f3d71d2ae4
