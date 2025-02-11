@@ -26,8 +26,8 @@
             $(this).addClass('active');
         });
         if ($('.product__filter').length > 0) {
-            let containerEl = document.querySelector('.product__filter');
-            let mixer = mixitup(containerEl);
+            var containerEl = document.querySelector('.product__filter');
+            var mixer = mixitup(containerEl);
         }
     });
 
@@ -35,7 +35,7 @@
         Background Set
     --------------------*/
     $('.set-bg').each(function () {
-        let bg = $(this).data('setbg');
+        var bg = $(this).data('setbg');
         $(this).css('background-image', 'url(' + bg + ')');
     });
 
