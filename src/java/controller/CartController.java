@@ -59,13 +59,13 @@ public class CartController extends HttpServlet {
 //            }
             
             if (service.equals("showShoppingCart")) {
-//                cart = (Cart) session.getAttribute("cart");
+
                 response.sendRedirect("Shopping-cart.jsp");
             }
             
             if (service.equals("deleteCartItem")) {
                 int CartItemPos = Integer.parseInt(request.getParameter("CartItemPos"));
-//                cart = (Cart) session.getAttribute("cart");
+
                 cart.updateCart(CartItemPos, cart.getItemsList().get(CartItemPos).getQuantity()-2);
                 response.sendRedirect("Shopping-cart.jsp");
             }

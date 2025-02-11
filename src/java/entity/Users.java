@@ -9,55 +9,56 @@ package entity;
  * @author HP
  */
 public class Users {
-    private int UserID;
-    private String Username;
-    private String Password;
-    private int RoleID;
+    private int userID;
+    private String username;
+    private String password;
+    private int roleID;
 
-    public Users(int UserID, String Username, String Password, int RoleID) {
-        this.UserID = UserID;
-        this.Username = Username;
-        this.Password = Password;
-        this.RoleID = RoleID;
+    public Users(int userID, String username, String password, int roleID) {
+        this.userID = userID;
+        this.username = username;
+        this.password = password;
+        this.roleID = roleID;
     }
 
-    public Users(String Username, String Password, int RoleID) {
-        this.Username = Username;
-        this.Password = Password;
-        this.RoleID = RoleID;
+    public Users(String username, String password, int roleID) {
+        this.username = username;
+        this.password = password;
+        this.roleID = roleID;
     }
 
     public int getUserID() {
-        return UserID;
+        return userID;
     }
 
-    public void setUserID(int UserID) {
-        this.UserID = UserID;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
-    public void setUsername(String Username) {
-        this.Username = Username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public void setPassword(String Password) {
-        this.Password = Password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getRoleID() {
-        return RoleID;
+        return roleID;
     }
 
-    public void setRoleID(int RoleID) {
-        this.RoleID = RoleID;
+    public void setRoleID(int roleID) {
+        this.roleID = roleID;
     }
+
     
     
 }

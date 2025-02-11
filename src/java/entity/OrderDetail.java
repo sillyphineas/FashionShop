@@ -9,69 +9,72 @@ package entity;
  * @author HP
  */
 public class OrderDetail {
-    private int OrderDetailID;
-    private int OrderID;
-    private int ProductID;
-    private int Quantity;
-    private double UnitPrice;
+    private int orderDetailID;
+    private int orderID;
+    private int productID;
+    private int quantity;
+    private double unitPrice;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int OrderDetailID, int OrderID, int ProductID, int Quantity, double UnitPrice) {
-        this.OrderDetailID = OrderDetailID;
-        this.OrderID = OrderID;
-        this.ProductID = ProductID;
-        this.Quantity = Quantity;
-        this.UnitPrice = UnitPrice;
+    public OrderDetail(int orderDetailID, int orderID, int productID, int quantity, double unitPrice) {
+        this.orderDetailID = orderDetailID;
+        this.orderID = orderID;
+        this.productID = productID;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
     }
 
-    public OrderDetail(int OrderID, int ProductID, int Quantity, double UnitPrice) {
-        this.OrderID = OrderID;
-        this.ProductID = ProductID;
-        this.Quantity = Quantity;
-        this.UnitPrice = UnitPrice;
+    
+
+    public OrderDetail(int orderID, int productID, int quantity, double unitPrice) {
+        this.orderID = orderID;
+        this.productID = productID;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
     }
 
     public int getOrderDetailID() {
-        return OrderDetailID;
+        return orderDetailID;
     }
 
-    public void setOrderDetailID(int OrderDetailID) {
-        this.OrderDetailID = OrderDetailID;
+    public void setOrderDetailID(int orderDetailID) {
+        this.orderDetailID = orderDetailID;
     }
 
     public int getOrderID() {
-        return OrderID;
+        return orderID;
     }
 
-    public void setOrderID(int OrderID) {
-        this.OrderID = OrderID;
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public int getProductID() {
-        return ProductID;
+        return productID;
     }
 
-    public void setProductID(int ProductID) {
-        this.ProductID = ProductID;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
-    public void setQuantity(int Quantity) {
-        this.Quantity = Quantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getUnitPrice() {
-        return UnitPrice;
+        return unitPrice;
     }
 
-    public void setUnitPrice(double UnitPrice) {
-        this.UnitPrice = UnitPrice;
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
+
     
     
 }
