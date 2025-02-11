@@ -44,7 +44,7 @@ public class CartController extends HttpServlet {
                 
                 int ProductID = Integer.parseInt(request.getParameter("pid"));
                 System.out.println(ProductID);
-                //if (cart.getCartItemByProductID(ProductID) == null) {
+
                     CartItem ci = new CartItem(daoPro.getProductById(ProductID), 1);
 //                    System.out.println("Product added: " + ci.getProduct().getProductID()+ " " + ci.getProduct().getProductName() + " " + ci.getQuantity());
 //                    System.out.println(cart.getNumberCartItem());

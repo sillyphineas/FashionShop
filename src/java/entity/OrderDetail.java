@@ -28,6 +28,8 @@ public class OrderDetail {
 
     
 
+    
+
     public OrderDetail(int orderID, int productID, int quantity, double unitPrice) {
         this.orderID = orderID;
         this.productID = productID;

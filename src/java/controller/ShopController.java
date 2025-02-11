@@ -54,7 +54,6 @@ public class ShopController extends HttpServlet {
                 String str = request.getParameter("str");
                 int count = 9;
                 int offset = (pageid - 1) * count;
-
                 String sql;
                 if (categoryID != null) {
                     sql = "SELECT * FROM Products WHERE CategoryID=" + categoryID
@@ -92,11 +91,6 @@ public class ShopController extends HttpServlet {
                 request.setAttribute("CategoryID", categoryID);
             }
 
-//            if (service.equals("search")) {
-//                String str = request.getParameter("str");
-//                response.sendRedirect("ShopController?service=pagination&pageid=1&str="+str);
-//                return;
-//            }
             
             RequestDispatcher rd = request.getRequestDispatcher("Shop.jsp");
             rd.forward(request, response);

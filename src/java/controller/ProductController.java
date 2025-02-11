@@ -46,18 +46,18 @@ public class ProductController extends HttpServlet {
                 Vector<Categories> listCategories = daoCate.getCategories("SELECT * FROM [dbo].[Categories]");
                 request.setAttribute("listCategories", listCategories);
                 int pageid = Integer.parseInt(request.getParameter("pageid"));
-                String CategoryID = request.getParameter("CategoryID");
+                String categoryID = request.getParameter("CategoryID");
                 String priceDown = request.getParameter("priceDown");
                 String priceUp = request.getParameter("priceUp");
                 int count = 9;
                 int offset = (pageid - 1) * count;
 
                 String sql;
-                if (CategoryID != null) {
-                    sql = "SELECT * FROM Products WHERE CategoryID=" + CategoryID
+                if (categoryID != null) {
+                    sql = "SELECT * FROM Products WHERE CategoryID=" + categoryID
                             + " ORDER BY ProductID OFFSET " + offset + " ROWS FETCH NEXT " + count + " ROWS ONLY";
 
-                    String countSql = "SELECT COUNT(*) FROM Products WHERE CategoryID=" + CategoryID;
+                    String countSql = "SELECT COUNT(*) FROM Products WHERE CategoryID=" + categoryID;
                     int totalProducts = daoPro.getTotalProducts(countSql);
                     int totalPages = (int) Math.ceil((double) totalProducts / count);
                     request.setAttribute("totalPages", totalPages);
@@ -80,7 +80,7 @@ public class ProductController extends HttpServlet {
                 Vector<Products> listProducts = daoPro.getProducts(sql);
                 request.setAttribute("listProducts", listProducts);
                 request.setAttribute("numberpage", pageid);
-                request.setAttribute("CategoryID", CategoryID);
+                request.setAttribute("CategoryID", categoryID);
                 RequestDispatcher rd = request.getRequestDispatcher("DisplayProducts.jsp");
                 rd.forward(request, response);
             }

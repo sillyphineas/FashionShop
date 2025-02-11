@@ -138,7 +138,7 @@
         mm = parseInt(mm) + 1;
         mm = String(mm).padStart(2, '0');
     }
-    var timerdate = mm + '/' + dd + '/' + yyyy;
+    let timerdate = mm + '/' + dd + '/' + yyyy;
     // For demo preview end
 
 
