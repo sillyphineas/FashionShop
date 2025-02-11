@@ -63,14 +63,14 @@ public class UsersController extends HttpServlet {
                     String Password = request.getParameter("Password");
                     int RoleId = Integer.parseInt(request.getParameter("RoleId"));
                     //System.out.println(UserId + " " + Username + " " + Password + " " + RoleId);
-                    int n = daoUs.updateUser(new Users(UserId, Username, Password, RoleId));
+                    daoUs.updateUser(new Users(UserId, Username, Password, RoleId));
                     response.sendRedirect("UsersController?service=displayUsers");
                 }
             }
             
             if (service.equals("deleteUser")) {
                 int UserID = Integer.parseInt(request.getParameter("UserID"));
-                int n = daoUs.deleteUser(UserID);
+                daoUs.deleteUser(UserID);
                 response.sendRedirect("UsersController?service=displayUsers");
             }
             
@@ -82,7 +82,7 @@ public class UsersController extends HttpServlet {
                     String Username = request.getParameter("Username");
                     String Password = request.getParameter("Password");
                     int RoleId = Integer.parseInt(request.getParameter("RoleId"));
-                    int n = daoUs.addUser(new Users(Username, Password, RoleId));
+                    daoUs.addUser(new Users(Username, Password, RoleId));
                     response.sendRedirect("UsersController?service=displayUsers");
                 }
             }

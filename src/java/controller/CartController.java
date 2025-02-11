@@ -42,10 +42,10 @@ public class CartController extends HttpServlet {
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
                 
-                int ProductID = Integer.parseInt(request.getParameter("pid"));
-                System.out.println(ProductID);
+                int productID = Integer.parseInt(request.getParameter("pid"));
+                System.out.println(productID);
                 //if (cart.getCartItemByProductID(ProductID) == null) {
-                    CartItem ci = new CartItem(daoPro.getProductById(ProductID), 1);
+                    CartItem ci = new CartItem(daoPro.getProductById(productID), 1);
 //                    System.out.println("Product added: " + ci.getProduct().getProductID()+ " " + ci.getProduct().getProductName() + " " + ci.getQuantity());
 //                    System.out.println(cart.getNumberCartItem());
                 //}
@@ -64,9 +64,8 @@ public class CartController extends HttpServlet {
             }
             
             if (service.equals("deleteCartItem")) {
-                int CartItemPos = Integer.parseInt(request.getParameter("CartItemPos"));
-//                cart = (Cart) session.getAttribute("cart");
-                cart.updateCart(CartItemPos, cart.getItemsList().get(CartItemPos).getQuantity()-2);
+                int cartItemPos = Integer.parseInt(request.getParameter("CartItemPos"));
+                cart.updateCart(cartItemPos , cart.getItemsList().get(cartItemPos ).getQuantity()-2);
                 response.sendRedirect("Shopping-cart.jsp");
             }
             
