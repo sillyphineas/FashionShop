@@ -38,7 +38,7 @@ public class RegisterController extends HttpServlet {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             Users user = new Users(username, password, 3);
-            int n = dao.addUser(user);
+            dao.addUser(user);
             RequestDispatcher rd = request.getRequestDispatcher("RegisterSuccess.jsp");
 //            request.setAttribute("username", username);
 //            request.setAttribute("password", password);

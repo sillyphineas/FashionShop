@@ -16,6 +16,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.Vector;
+import java.util.logging.Logger;
+
+
 import model.DAOUsers;
 
 /**
@@ -24,7 +27,8 @@ import model.DAOUsers;
  */
 @WebServlet(name="LoginController", urlPatterns={"/LoginController"})
 public class LoginController extends HttpServlet {
-   
+    private static final Logger logger = Logger.getLogger(LoginController.class.getName());
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -42,6 +46,7 @@ public class LoginController extends HttpServlet {
             String sql = "SELECT * FROM [dbo].[Users]";
             DAOUsers dao = new DAOUsers();
             Vector<Users> vector = dao.getUsers(sql);
+            
             boolean checkLogin = false;
             for (Users u : vector) {
                 System.out.println("Database Username: " + u.getUsername() + ", Database Password: " + u.getPassword());
@@ -55,7 +60,7 @@ public class LoginController extends HttpServlet {
                         session.setAttribute("username", username);
                         session.setAttribute("password", password);
                         session.setAttribute("userID", u.getUserID());
-                        System.out.println(u.getUserID());
+                        logger.info("User ID: " + u.getUserID());
                         session.setAttribute("role", u.getRoleID());
                         rd.forward(request, response);
                     } else if (u.getRoleID() == 2) {
@@ -64,7 +69,7 @@ public class LoginController extends HttpServlet {
                         session.setAttribute("username", username);
                         session.setAttribute("password", password);
                         session.setAttribute("userID", u.getUserID());
-                        System.out.println(u.getUserID());
+                        logger.info("User ID: " + u.getUserID());
                         session.setAttribute("role", u.getRoleID());
                         rd.forward(request, response);
                     } else if (u.getRoleID() == 1) {
@@ -73,7 +78,7 @@ public class LoginController extends HttpServlet {
                         session.setAttribute("username", username);
                         session.setAttribute("password", password);
                         session.setAttribute("userID", u.getUserID());
-                        System.out.println(u.getUserID());
+                         logger.info("User ID: " + u.getUserID());
                         session.setAttribute("role", u.getRoleID());
                         rd.forward(request, response);
                     }
