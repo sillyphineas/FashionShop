@@ -55,7 +55,7 @@ public class OrderController extends HttpServlet {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String OrderDate = currentTime.format(formatter);
                 double TotalAmount = cart.getTotalAmount();
-                String status = "";
+                String status = "Chờ phê duyệt";
                 Orders o = new Orders(userID, OrderDate, TotalAmount, status, FirstName, LastName, Country, Address, Phone, Email, OrderNotes);
                 int n = daoOr.addOrders(o);
                 int OrderID = daoOr.getOrderIdNew();
@@ -83,8 +83,8 @@ public class OrderController extends HttpServlet {
             }
 
             if (service.equals("filterStatus")) {
-                String opt = request.getParameter("option");
-                String sql = "SELECT * FROM [dbo].[Orders] WHERE Status = N'" + opt + "'";
+                String opt = request.getParameter("option"); // lấy đúng tham số từ form
+                String sql = "SELECT * FROM [dbo].[Orders] WHERE Status = N'" + opt + "'"; // câu SQL trực tiếp với điều kiện
 
                 Vector<Orders> orderList = daoOr.getOrders(sql);
                 RequestDispatcher rd = request.getRequestDispatcher("DisplayOrders.jsp");

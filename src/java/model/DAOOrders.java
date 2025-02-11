@@ -98,7 +98,7 @@ public class DAOOrders extends DBConnection {
         int n = 0;
         String sql = """
                      UPDATE [dbo].[Orders]
-                        SET [Status] = N'Da phe duyet'
+                        SET [Status] = N'Đã phê duyệt'
                       WHERE [OrderID] = ?
                      """;
         try {
