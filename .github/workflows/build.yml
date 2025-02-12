@@ -3,32 +3,24 @@ name: Build and Analyze
 on:
   push:
     branches:
-      - master # hoặc nhánh bạn muốn theo dõi
+      - master
 
 jobs:
   build:
-    name: Build and analyze
-    runs-on: windows-latest # hoặc ubuntu-latest nếu bạn sử dụng môi trường Linux
+    name: Build and Analyze
+    runs-on: windows-latest  # Sử dụng môi trường Windows
 
     steps:
       # Bước 1: Checkout mã nguồn
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Đảm bảo toàn bộ lịch sử được lấy để phân tích chính xác
+          fetch-depth: 0  # Lấy toàn bộ lịch sử thay vì chỉ commit gần nhất
 
       # Bước 2: Cài đặt SonarQube Scanner và chạy phân tích
-      - name: SonarQube scan
-        uses: SonarSource/sonarcloud-github-action@v1
+      - name: Set up SonarQube Scanner
+        uses: sonarsource/sonar-scanner-action@v2
         with:
-          sonar-token: ${{ secrets.SONAR_TOKEN }} # Dùng token từ GitHub Secrets
-          sonar-host-url: ${{ secrets.SONAR_HOST_URL }} # URL của SonarQube (nếu có, nếu bạn sử dụng SonarCloud thì không cần)
-
-      # Bước 3: (Tùy chọn) Kiểm tra chất lượng mã từ SonarQube
-      # Uncomment bước này nếu bạn muốn kiểm tra kết quả phân tích (Quality Gate)
-      # - name: Check Quality Gate
-      #   uses: SonarSource/sonar-quality-gate-action@v1
-      #   with:
-      #     timeout-minutes: 5
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          sonar-token: ${{ secrets.SONAR_TOKEN }}  # Token từ GitHub Secrets
+          sonar-host-url: ${{ secrets.SONAR_HOST_URL }}  # URL của SonarQube từ GitHub Secrets
+          projectBaseDir: .  # Chỉ định thư mục gốc của dự án
