@@ -65,7 +65,7 @@ public class OrderController extends HttpServlet {
                     daoOd.addOrderDetail(od);
                 }
                 
-                System.out.println("hello123");
+                System.out.println("hello12334234");
                 cart.deleteAllCartItem();
                 response.sendRedirect("HomePage.jsp");
             }
