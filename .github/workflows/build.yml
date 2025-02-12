@@ -17,17 +17,20 @@ jobs:
         with:
           fetch-depth: 0  # Lấy toàn bộ lịch sử thay vì chỉ commit gần nhất
 
-      # Bước 2: Set up SonarQube Scanner (sử dụng scanner đã cài trên máy)
+      # Bước 2: Cài đặt SonarQube Scanner
       - name: Set up SonarQube Scanner
         run: |
-          # Thêm đường dẫn tới SonarQube Scanner đã cài sẵn trên máy cá nhân của bạn
+          # Giả sử bạn đã tải SonarQube Scanner vào thư mục Desktop
+          # Thêm đường dẫn vào môi trường PATH
           echo "C:\\Users\\HP\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin" >> $GITHUB_PATH
+          # Kiểm tra xem sonar-scanner đã được nhận diện chưa
+          sonar-scanner --version  # Kiểm tra phiên bản để xác nhận
           
-      # Bước 3: Run SonarQube scan qua ngrok (URL ngrok là địa chỉ bạn nhận được từ ngrok)
+      # Bước 3: Run SonarQube scan
       - name: Run SonarQube scan
         run: |
           sonar-scanner \
             -Dsonar.projectKey=sillyphineas_FashionShop_ce8976e9-7afc-4ef2-ba57-c03dd7795b40 \
             -Dsonar.sources=src \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}  # Đảm bảo URL ngrok được cấu hình trong GitHub Secrets
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
