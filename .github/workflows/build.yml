@@ -17,11 +17,23 @@ jobs:
         with:
           fetch-depth: 0  # Lấy toàn bộ lịch sử thay vì chỉ commit gần nhất
 
+      # Bước 2: Cài đặt SonarQube Scanner
+      - name: Install SonarQube Scanner
+        run: |
+          # Tải SonarQube Scanner
+          curl -sS https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-windows.zip -o sonar-scanner.zip
+          # Giải nén
+          powershell -Command "Expand-Archive -Path sonar-scanner.zip -DestinationPath $env:USERPROFILE\sonar-scanner"
+          # Thêm đường dẫn đến sonar-scanner vào PATH
+          echo "$env:USERPROFILE\sonar-scanner\sonar-scanner-4.6.2.2472-windows\bin" >> $env:GITHUB_PATH
+          # Kiểm tra xem sonar-scanner đã được nhận diện chưa
+          sonar-scanner --version  # Kiểm tra phiên bản để xác nhận
+
       # Bước 3: Run SonarQube scan
       - name: Run SonarQube scan
         run: |
           sonar-scanner \
             -Dsonar.projectKey=sillyphineas_FashionShop_ce8976e9-7afc-4ef2-ba57-c03dd7795b40 \
             -Dsonar.sources=src \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}  # URL ngrok của bạn
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}  # URL ngrok mà bạn đã cấu hình trong GitHub Secrets
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}  # Token của SonarQube
