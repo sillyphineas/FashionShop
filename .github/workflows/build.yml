@@ -19,10 +19,9 @@ jobs:
 
       # Bước 2: Thêm SonarQube Scanner vào PATH
       - name: Set up SonarQube Scanner
-        shell: bash
         run: |
-          # Đảm bảo đường dẫn tới sonar-scanner được thêm vào PATH trong môi trường Linux shell
-          echo "C:\\Users\\HP\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin" >> $GITHUB_PATH
+          # Thêm đường dẫn tới sonar-scanner vào PATH
+          echo "C:\\Users\\HP\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin" >> $Env:GITHUB_PATH
           # Kiểm tra xem sonar-scanner đã được nhận diện chưa
           sonar-scanner --version  # Kiểm tra phiên bản để xác nhận
 
