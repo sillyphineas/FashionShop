@@ -5,40 +5,23 @@ on:
     branches:
       - master
       - develop
-    # Add any other branches you want to trigger analysis on
+    # Thêm các nhánh khác nếu bạn muốn phân tích khi có push vào các nhánh đó
 
 jobs:
   sonarqube-check:
-    runs-on: windows-latest  # Sử dụng môi trường Windows
+    runs-on: ubuntu-latest  # Sử dụng Ubuntu container cho môi trường ổn định
 
     steps:
       # Bước 1: Checkout mã nguồn từ GitHub repository
       - name: Checkout code
         uses: actions/checkout@v2  # Lấy mã nguồn từ repository của bạn
 
-      # Bước 2: Cài đặt SonarQube Scanner nếu chưa có
-      - name: Install SonarQube Scanner
-        run: |
-          # Kiểm tra xem sonar-scanner đã có trên máy chưa
-          if (!(Test-Path "C:\\sonar-scanner\\bin\\sonar-scanner.exe")) {
-            # Nếu chưa có, tải và cài đặt sonar-scanner
-            echo "Downloading SonarQube Scanner..."
-            Invoke-WebRequest -Uri https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-windows.zip -OutFile sonar-scanner.zip
-            Expand-Archive -Path sonar-scanner.zip -DestinationPath "C:\\sonar-scanner"
-            Remove-Item -Force sonar-scanner.zip
-          }
-          # Thêm đường dẫn tới sonar-scanner vào PATH
-          $env:PATH += ";C:\\sonar-scanner\\sonar-scanner-4.6.2.2472-windows\\bin"
-          Write-Host "Updated PATH: $env:PATH"
-          # Kiểm tra sonar-scanner đã được cài đặt chưa
-          echo "PATH: $env:PATH"  # In ra PATH để kiểm tra
-          sonar-scanner --version
-
-      # Bước 3: Run SonarQube scan
+      # Bước 2: Sử dụng Docker Image SonarQube Scanner chính thức để phân tích mã
       - name: Run SonarQube scan
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=sillyphineas_FashionShop_ce8976e9-7afc-4ef2-ba57-c03dd7795b40 \
-            -Dsonar.sources=src \
+        uses: sonarsource/sonar-scanner-cli@v2
+        with:
+          args: >
+            -Dsonar.projectKey=sillyphineas_FashionShop_ce8976e9-7afc-4ef2-ba57-c03dd7795b40
+            -Dsonar.sources=src
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}  # URL ngrok mà bạn đã cấu hình trong GitHub Secrets
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}  # Token của SonarQube
