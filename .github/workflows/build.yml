@@ -5,7 +5,7 @@ on:
     branches:
       - master
       - develop
-    # Add any other branches you want to trigger analysis on
+    # Thêm các nhánh khác nếu bạn muốn phân tích khi có push vào các nhánh đó
 
 jobs:
   sonarqube-check:
@@ -16,14 +16,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2  # Lấy mã nguồn từ repository của bạn
 
-      # Bước 2: Cập nhật đường dẫn đến SonarQube Scanner
-      - name: Add SonarQube Scanner to PATH
+      # Bước 2: Cài đặt SonarQube Scanner nếu chưa có
+      - name: Install SonarQube Scanner
         run: |
-          # Đảm bảo sonar-scanner đã có trong PATH
-          $env:PATH += ";C:\\Users\\HP\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin"
-          # Kiểm tra xem sonar-scanner đã được nhận diện chưa
-          echo $env:PATH  # In ra PATH để kiểm tra xem nó đã được cập nhật đúng chưa
-          sonar-scanner --version  # Kiểm tra phiên bản sonar-scanner
+          # Kiểm tra xem sonar-scanner đã có trên máy chưa
+          if (!(Test-Path "C:\\Users\\runneradmin\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin\\sonar-scanner.exe")) {
+            # Nếu chưa có, tải và cài đặt sonar-scanner
+            echo "Downloading SonarQube Scanner..."
+            Invoke-WebRequest -Uri https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-windows.zip -OutFile sonar-scanner.zip
+            Expand-Archive -Path sonar-scanner.zip -DestinationPath "C:\\Users\\runneradmin\\Desktop\\sonar-scanner"
+            Remove-Item -Force sonar-scanner.zip
+          }
+          # Thêm đường dẫn tới sonar-scanner vào PATH
+          $env:PATH += ";C:\\Users\\runneradmin\\Desktop\\sonar-scanner\\sonar-scanner-4.6.2.2472-windows\\bin"
+          # Kiểm tra sonar-scanner đã được cài đặt chưa
+          sonar-scanner --version
 
       # Bước 3: Run SonarQube scan
       - name: Run SonarQube scan
