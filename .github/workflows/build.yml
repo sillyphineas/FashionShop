@@ -17,13 +17,13 @@ jobs:
         with:
           fetch-depth: 0  # Lấy toàn bộ lịch sử thay vì chỉ commit gần nhất
 
-      # Bước 2: Set up SonarQube Scanner
+      # Bước 2: Thêm SonarQube Scanner vào PATH
       - name: Set up SonarQube Scanner
+        shell: bash
         run: |
-          # Thêm đường dẫn đến sonar-scanner vào PATH cho GitHub Actions
-          echo "C:\\Users\\HP\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin" >> $GITHUB_ENV
+          # Đảm bảo đường dẫn tới sonar-scanner được thêm vào PATH trong môi trường Linux shell
+          echo "C:\\Users\\HP\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin" >> $GITHUB_PATH
           # Kiểm tra xem sonar-scanner đã được nhận diện chưa
-          $env:PATH += ";C:\Users\HP\Desktop\sonar-scanner-6.2.1.4610-windows-x64\bin"
           sonar-scanner --version  # Kiểm tra phiên bản để xác nhận
 
       # Bước 3: Run SonarQube scan
