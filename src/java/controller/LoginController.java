@@ -49,9 +49,9 @@ public class LoginController extends HttpServlet {
             
             boolean checkLogin = false;
             for (Users u : vector) {
-                System.out.println("Database Username: " + u.getUsername() + ", Database Password: " + u.getPassword());
-                System.out.println("Input Username: " + username + ", Input Password: " + password);
-                System.out.println("UserID: " + u.getUserID() + "Username: " + u.getUsername() + "Password" + u.getPassword() + "Role: " + u.getRoleID());
+                logger.info("Database Username: " + u.getUsername() + ", Database Password: " + u.getPassword());
+                logger.info("Input Username: " + username + ", Input Password: " + password);
+                logger.info("UserID: " + u.getUserID() + "Username: " + u.getUsername() + "Password" + u.getPassword() + "Role: " + u.getRoleID());
                 if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
                     checkLogin = true;
                     if (u.getRoleID() == 3) {

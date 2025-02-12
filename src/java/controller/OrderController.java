@@ -21,22 +21,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 import model.DAOOrderDetail;
 import model.DAOOrders;
-
+import java.util.logging.Logger;
 /**
  *
  * @author HP
  */
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
 public class OrderController extends HttpServlet {
-
+    private static final Logger logger = Logger.getLogger(LoginController.class.getName());
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         DAOOrders daoOr = new DAOOrders();
         DAOOrderDetail daoOd = new DAOOrderDetail();
         HttpSession session = request.getSession();
         int userID = (int) session.getAttribute("userID");
-        System.out.println(userID);
+        logger.info("user:" + userID);
         Cart cart = (Cart) session.getAttribute("cart");
 
         try (PrintWriter out = response.getWriter()) {

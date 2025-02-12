@@ -17,12 +17,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.DAOProducts;
 
+
 /**
  *
  * @author HP
  */
 @WebServlet(name="CartController", urlPatterns={"/CartController"})
 public class CartController extends HttpServlet {
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -46,17 +48,10 @@ public class CartController extends HttpServlet {
                 System.out.println(ProductID);
 
                     CartItem ci = new CartItem(daoPro.getProductById(ProductID), 1);
-//                    System.out.println("Product added: " + ci.getProduct().getProductID()+ " " + ci.getProduct().getProductName() + " " + ci.getQuantity());
-//                    System.out.println(cart.getNumberCartItem());
-                //}
                 cart.addItemToCart(ci);
                 response.sendRedirect("ShopController?service=pagination&pageid=1");
             }
             session.setAttribute("cart", cart);
-//            System.out.println(cart.getNumberCartItem());
-//            for (int i = 0; i < cart.getNumberCartItem(); i++) {
-//                System.out.println(cart.getItemsList().get(i).getProduct().getProductName() + " " + cart.getItemsList().get(i).getQuantity());
-//            }
             
             if (service.equals("showShoppingCart")) {
 
