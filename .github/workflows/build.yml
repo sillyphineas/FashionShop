@@ -19,10 +19,11 @@ jobs:
       # Bước 2: Cập nhật đường dẫn đến SonarQube Scanner
       - name: Add SonarQube Scanner to PATH
         run: |
-          # Thêm đường dẫn tới sonar-scanner vào PATH
-          echo "C:\\Users\\HP\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin" >> $env:GITHUB_PATH
-          # Kiểm tra phiên bản sonar-scanner để xác nhận
-          sonar-scanner --version  # Kiểm tra xem SonarQube Scanner có được nhận diện không
+          # Đảm bảo sonar-scanner đã có trong PATH
+          $env:PATH += ";C:\\Users\\HP\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin"
+          # Kiểm tra xem sonar-scanner đã được nhận diện chưa
+          echo $env:PATH  # In ra PATH để kiểm tra xem nó đã được cập nhật đúng chưa
+          sonar-scanner --version  # Kiểm tra phiên bản sonar-scanner
 
       # Bước 3: Run SonarQube scan
       - name: Run SonarQube scan
@@ -31,4 +32,4 @@ jobs:
             -Dsonar.projectKey=sillyphineas_FashionShop_ce8976e9-7afc-4ef2-ba57-c03dd7795b40 \
             -Dsonar.sources=src \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}  # URL ngrok mà bạn đã cấu hình trong GitHub Secrets
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}  # Token của SonarQube mà bạn đã thêm vào GitHub Secrets
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}  # Token của SonarQube
