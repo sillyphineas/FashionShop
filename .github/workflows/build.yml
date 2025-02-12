@@ -4,30 +4,25 @@ on:
   push:
     branches:
       - master
+      - develop
+    # Add any other branches you want to trigger analysis on
 
 jobs:
-  build:
-    name: Build and Analyze
+  sonarqube-check:
     runs-on: windows-latest  # Sử dụng môi trường Windows
 
     steps:
-      # Bước 1: Checkout mã nguồn
+      # Bước 1: Checkout mã nguồn từ GitHub repository
       - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Lấy toàn bộ lịch sử thay vì chỉ commit gần nhất
+        uses: actions/checkout@v2  # Lấy mã nguồn từ repository của bạn
 
-      # Bước 2: Cài đặt SonarQube Scanner
-      - name: Install SonarQube Scanner
+      # Bước 2: Cập nhật đường dẫn đến SonarQube Scanner
+      - name: Add SonarQube Scanner to PATH
         run: |
-          # Tải SonarQube Scanner
-          curl -sS https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-windows.zip -o sonar-scanner.zip
-          # Giải nén
-          powershell -Command "Expand-Archive -Path sonar-scanner.zip -DestinationPath $env:USERPROFILE\sonar-scanner"
-          # Thêm đường dẫn đến sonar-scanner vào PATH
-          echo "$env:USERPROFILE\sonar-scanner\sonar-scanner-4.6.2.2472-windows\bin" >> $env:GITHUB_PATH
-          # Kiểm tra xem sonar-scanner đã được nhận diện chưa
-          sonar-scanner --version  # Kiểm tra phiên bản để xác nhận
+          # Thêm đường dẫn tới sonar-scanner vào PATH
+          echo "C:\\Users\\HP\\Desktop\\sonar-scanner-6.2.1.4610-windows-x64\\bin" >> $env:GITHUB_PATH
+          # Kiểm tra phiên bản sonar-scanner để xác nhận
+          sonar-scanner --version  # Kiểm tra xem SonarQube Scanner có được nhận diện không
 
       # Bước 3: Run SonarQube scan
       - name: Run SonarQube scan
@@ -36,4 +31,4 @@ jobs:
             -Dsonar.projectKey=sillyphineas_FashionShop_ce8976e9-7afc-4ef2-ba57-c03dd7795b40 \
             -Dsonar.sources=src \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}  # URL ngrok mà bạn đã cấu hình trong GitHub Secrets
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}  # Token của SonarQube
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}  # Token của SonarQube mà bạn đã thêm vào GitHub Secrets
