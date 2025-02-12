@@ -64,6 +64,8 @@ public class OrderController extends HttpServlet {
                     OrderDetail od = new OrderDetail(OrderID, cart.getItemsList().get(i).getProduct().getProductID(), cart.getItemsList().get(i).getQuantity(), cart.getItemsList().get(i).getProduct().getPrice());
                     daoOd.addOrderDetail(od);
                 }
+                
+                System.out.println("hello");
                 cart.deleteAllCartItem();
                 response.sendRedirect("HomePage.jsp");
             }
