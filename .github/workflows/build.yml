@@ -1,27 +1,34 @@
-name: Build
+name: Build and Analyze
 
 on:
   push:
     branches:
-      - master
-
+      - master # hoặc nhánh bạn muốn theo dõi
 
 jobs:
   build:
     name: Build and analyze
-    runs-on: windows-latest
-    
+    runs-on: windows-latest # hoặc ubuntu-latest nếu bạn sử dụng môi trường Linux
+
     steps:
-      - uses: actions/checkout@v4
+      # Bước 1: Checkout mã nguồn
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: SonarSource/sonarqube-scan-action@v4
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      # - uses: SonarSource/sonarqube-quality-gate-action@v1
-      #   timeout-minutes: 5
+          fetch-depth: 0  # Đảm bảo toàn bộ lịch sử được lấy để phân tích chính xác
+
+      # Bước 2: Cài đặt SonarQube Scanner và chạy phân tích
+      - name: SonarQube scan
+        uses: SonarSource/sonarcloud-github-action@v1
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }} # Dùng token từ GitHub Secrets
+          sonar-host-url: ${{ secrets.SONAR_HOST_URL }} # URL của SonarQube (nếu có, nếu bạn sử dụng SonarCloud thì không cần)
+
+      # Bước 3: (Tùy chọn) Kiểm tra chất lượng mã từ SonarQube
+      # Uncomment bước này nếu bạn muốn kiểm tra kết quả phân tích (Quality Gate)
+      # - name: Check Quality Gate
+      #   uses: SonarSource/sonar-quality-gate-action@v1
+      #   with:
+      #     timeout-minutes: 5
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
